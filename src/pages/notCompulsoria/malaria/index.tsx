@@ -2,8 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { PDFDocument } from 'pdf-lib';
 import PDF from '../malaria/MOLDE_MALARIA.pdf'; // Caminho do seu PDF modelo
-import verificaCampos from '../../../util/verificaCampos/index.tsx';
-import testarPosicoes from '../../../util/verificaCampos/index.tsx';
 
 export default function NotifMalaria() {
 
@@ -40,6 +38,15 @@ export default function NotifMalaria() {
         const dataPrimSinto = document.getElementById('dataPrimSinto').value;
         const tratVivaxMalUlt15 = document.getElementById('tratVivaxMalUlt15').value;
         const tratFalcMalUlt15 = document.getElementById('tratFalcMalUlt15').value;
+        const outPaisProInfec = document.getElementById('outPaisProInfec').value;
+        const ufProvavelInfec = document.getElementById('ufProvavelInfec').value;
+        const municipioProvProInfec = document.getElementById('municipioProvProInfec').value;
+        const codMunProvProInfec = document.getElementById('codMunProvProInfec').value;
+        const localidProvProInfec = document.getElementById('localidProvProInfec').value;
+        const codLocProvProInfec = document.getElementById('codLocProvProInfec').value;
+        const dataExame = document.getElementById('dataExame').value;
+        const tipoExame = document.getElementById('tipoExame').value;
+        const resultadoExame = document.getElementById('resultadoExame').value;
 
         // Salva os valores no localStorage
         localStorage.setItem('dataNotificacao', dataNotificacao);
@@ -70,16 +77,25 @@ export default function NotifMalaria() {
         localStorage.setItem('dataPrimSinto', dataPrimSinto);
         localStorage.setItem('tratVivaxMalUlt15', tratVivaxMalUlt15);
         localStorage.setItem('tratFalcMalUlt15', tratFalcMalUlt15);
+        localStorage.setItem('outPaisProInfec', outPaisProInfec);
+        localStorage.setItem('ufProvavelInfec', ufProvavelInfec);
+        localStorage.setItem('municipioProvProInfec', municipioProvProInfec);
+        localStorage.setItem('codMunProvProInfec', codMunProvProInfec);
+        localStorage.setItem('localidProvProInfec', localidProvProInfec);
+        localStorage.setItem('codLocProvProInfec', codLocProvProInfec);
+        localStorage.setItem('dataExame', dataExame);
+        localStorage.setItem('tipoExame', tipoExame);
+        localStorage.setItem('resultadoExame', resultadoExame);
 
         // Mensagem de sucesso
         alert("Notificação salva com sucesso!");
 
         // Chama a função para gerar e preencher o PDF com os dados
-        await preencherPDF(nomePaciente, nrNotificacao, dataNotificacao, tipoDeteccao, sintomas, telPaciente, pesoPaciente, nrCartaoSus, nascPaciente, idadePaciente, sexoPaciente, gestantePaciente, amamentandoPaciente, tempoAmamentando, escolaridadePaciente, racaPaciente, nomeMaePaciente, princpAtividade, enderecoPaciente, outPaisResidencia, ufResidPaciente, municipioResid, codMunResid, localidadeResid, codLocResid, dataPrimSinto, tratVivaxMalUlt15, tratFalcMalUlt15);
+        await preencherPDF(nomePaciente, nrNotificacao, dataNotificacao, tipoDeteccao, sintomas, telPaciente, pesoPaciente, nrCartaoSus, nascPaciente, idadePaciente, sexoPaciente, gestantePaciente, amamentandoPaciente, tempoAmamentando, escolaridadePaciente, racaPaciente, nomeMaePaciente, princpAtividade, enderecoPaciente, outPaisResidencia, ufResidPaciente, municipioResid, codMunResid, localidadeResid, codLocResid, dataPrimSinto, tratVivaxMalUlt15, tratFalcMalUlt15, outPaisProInfec, ufProvavelInfec, municipioProvProInfec, codMunProvProInfec, localidProvProInfec, codLocProvProInfec, dataExame, tipoExame, resultadoExame);
     };
 
     // Função para preencher o PDF com os dados do localStorage
-    const preencherPDF = async (nomePaciente, nrNotificacao, dataNotificacao, tipoDeteccao, sintomas, telPaciente, pesoPaciente, nrCartaoSus, nascPaciente, idadePaciente, sexoPaciente, gestantePaciente, amamentandoPaciente, tempoAmamentando, escolaridadePaciente, racaPaciente, nomeMaePaciente, princpAtividade, enderecoPaciente, outPaisResidencia, ufResidPaciente, municipioResid, codMunResid, localidadeResid, codLocResid, dataPrimSinto, tratVivaxMalUlt15, tratFalcMalUlt15) => {
+    const preencherPDF = async (nomePaciente, nrNotificacao, dataNotificacao, tipoDeteccao, sintomas, telPaciente, pesoPaciente, nrCartaoSus, nascPaciente, idadePaciente, sexoPaciente, gestantePaciente, amamentandoPaciente, tempoAmamentando, escolaridadePaciente, racaPaciente, nomeMaePaciente, princpAtividade, enderecoPaciente, outPaisResidencia, ufResidPaciente, municipioResid, codMunResid, localidadeResid, codLocResid, dataPrimSinto, tratVivaxMalUlt15, tratFalcMalUlt15, outPaisProInfec, ufProvavelInfec, municipioProvProInfec, codMunProvProInfec, localidProvProInfec, codLocProvProInfec, dataExame, tipoExame, resultadoExame) => {
         // Caminho do arquivo PDF modelo
         const url = PDF; // Caminho do seu PDF modelo
         const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
@@ -325,6 +341,68 @@ export default function NotifMalaria() {
         page.drawText(tratFalcMalUlt15, {
             x: 475,
             y: 387,
+            size: 9,
+        });
+
+        // 16 LINHA DO DOCUMENTO SIVEP
+        
+        page.drawText(outPaisProInfec, {
+            x: 60,
+            y: 360,
+            size: 9,
+        });
+
+        page.drawText(ufProvavelInfec, {
+            x: 445,
+            y: 360,
+            size: 9,
+        });
+
+        // 17 LINHA DO DOCUMENTO SIVEP
+        
+        page.drawText(municipioProvProInfec, {
+            x: 60,
+            y: 333,
+            size: 9,
+        });
+
+        page.drawText(codMunProvProInfec, {
+            x: 445,
+            y: 333,
+            size: 9,
+        });
+
+        // 18 LINHA DO DOCUMENTO SIVEP
+        
+        page.drawText(localidProvProInfec, {
+            x: 60,
+            y: 306,
+            size: 9,
+        });
+
+        page.drawText(codLocProvProInfec, {
+            x: 445,
+            y: 306,
+            size: 9,
+        });
+
+        // 19 LINHA DO DOCUMENTO SIVEP
+        
+        page.drawText(dataExame, {
+            x: 60,
+            y: 269,
+            size: 9,
+        });
+
+        page.drawText(tipoExame, {
+            x: 207,
+            y: 273,
+            size: 9,
+        });
+
+        page.drawText(resultadoExame, {
+            x: 353,
+            y: 273,
             size: 9,
         });
 
@@ -581,6 +659,76 @@ export default function NotifMalaria() {
                             <option selected>- - Selecione - -</option>
                             <option value="1">1 - Sim</option>
                             <option value="2">2 - Não</option>
+                        </select>
+                    </div>
+
+                    <div className="form-row">
+                        <div className="col-md-6 mb-3">
+                            <label htmlFor="outPaisProInfec">Outro Pais Provavel de Infeccao:</label>
+                            <input type="text" className="form-control" id="outPaisProInfec" placeholder="Outro Pais Provavel de Infeccao" required />
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="col-md-6 mb-3">
+                            <label htmlFor="ufProvavelInfec">UF Provavel de Infeccao:</label>
+                            <input type="text" className="form-control" id="ufProvavelInfec" placeholder="UF Provavel de Infeccao" required />
+                        </div>
+                    </div>
+
+                    <div className="form-row">
+                        <div className="col-md-6 mb-3">
+                            <label htmlFor="municipioProvProInfec">Municipio Provavel de Infeccao:</label>
+                            <input type="text" className="form-control" id="municipioProvProInfec" placeholder="Outro Pais Provavel de Infeccao" required />
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="col-md-6 mb-3">
+                            <label htmlFor="codMunProvProInfec">Cod. Mun. Prov. Infeccao:</label>
+                            <input type="text" className="form-control" id="codMunProvProInfec" placeholder="Outro Pais Provavel de Infeccao" required />
+                        </div>
+                    </div>
+
+                    <div className="form-row">
+                        <div className="col-md-6 mb-3">
+                            <label htmlFor="localidProvProInfec">Localidade Provavel da Infeccao:</label>
+                            <input type="text" className="form-control" id="localidProvProInfec" placeholder="Outro Pais Provavel de Infeccao" required />
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="col-md-6 mb-3">
+                            <label htmlFor="codLocProvProInfec">Cod. Localid. Prov. Infeccao:</label>
+                            <input type="text" className="form-control" id="codLocProvProInfec" placeholder="Outro Pais Provavel de Infeccao" required />
+                        </div>
+                    </div>
+
+                    <div className="form-row">
+                        <div className="col-md-6 mb-3">
+                            <label htmlFor="dataExame">Data do Exame:</label>
+                            <input type="text" className="form-control" id="dataExame" placeholder="Data do Exame" required />
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <select className="form-select" id="tipoExame" aria-label="Default select example">
+                            <option selected>Tipo de Exame:</option>
+                            <option value="1">1 - Gota espessa/Esfregaco</option>
+                            <option value="2">2 - Teste Rapido</option>
+                            <option value="3">3 - Tecnicas Moleculares</option>
+                        </select>
+                    </div>
+                    <div className="form-row">
+                        <select className="form-select" id="resultadoExame" aria-label="Default select example">
+                            <option selected>Resultado do Exame:</option>
+                            <option value="1">1 - Negativo</option>
+                            <option value="2">2 - F</option>
+                            <option value="3">3 - F + FG</option>
+                            <option value="4">4 - V</option>
+                            <option value="5">5 - F + V</option>
+                            <option value="6">6 - V + FG</option>
+                            <option value="7">7 - FG</option>
+                            <option value="8">8 - M</option>
+                            <option value="9">9 - F + M</option>
+                            <option value="10">10 - Ov</option>
+                            <option value="11">11 - Nao F</option>
                         </select>
                     </div>
 
