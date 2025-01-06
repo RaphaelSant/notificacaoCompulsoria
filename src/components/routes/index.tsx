@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NotificacaoCompulsoria from "../../pages/notCompulsoria";
+import NotificacaoCompulsoria from "../../pages/homePage";
 import NotifMalaria from "../../pages/notCompulsoria/malaria";
 
 export default function Rotas() {
